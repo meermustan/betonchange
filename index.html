@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.9">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <title>Bet On Change</title>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="text-light my-2 mx-3">Bet On Change</div>
+    </nav>
+    <div class="container my-4" style="display: none;flex-direction: column;" id="teamSelect">
+        <h3>Choose a teams:</h3>
+        <div class="d-flex mx-4 my-3">
+            <div class="mx-4">
+                Team 1 : <input id="selectTeam1" style="width: 40px;" type="text">
+            </div>
+            <div>
+                Team 2 : <input id="selectTeam2" style="width: 40px;" type="text">
+            </div>
+            <div class="mx-5">
+                <button onclick="selectTeams()" class="btn btn-secondary">Enter</button>
+            </div>
+        </div>
+    </div>
+    <div id="main" style="border: 1px solid rgb(0, 0, 0 , 0.25); display: flex;" class="container p-3 my-4 flex-wrap">
+        <div class="mx-3">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="teams" id="team1" checked>
+                <label class="form-check-label team1" id="team1Label" for="team1">
+                    Team 1
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="teams" id="team2">
+                <label class="form-check-label team2" id="team2Label" for="team2">
+                    Team 2
+                </label>
+            </div>
+        </div>
+        <div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="rates" id="doing1" checked>
+                <label class="form-check-label" id="doing1Label" for="doing1">
+                    Direct
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="rates" id="doing2">
+                <label class="form-check-label" id="doing2Label" for="doing2">
+                    Oposite
+                </label>
+            </div>
+        </div>
+        <div class="mx-3 my-3">
+            <label class="form-check-label" for="price">
+                Price
+            </label>
+            <input style="width: 150px;" type="number" id="price">
+        </div>
+        <div class="mx-3 my-3">
+            <label class="form-check-label" for="rate">
+                Rate
+            </label>
+            <input style="width: 40px;" type="number" id="rate">
+        </div>
+        <div class="my-3 mx-3">
+            <button onclick="addRate()" type="button" class="btn btn-secondary">Enter</button>
+        </div>
+    </div>
+    <hr>
+    <div class="container my-3">
+        <h6 class="list-group-item list-group-item-secondary text-dark m-0" aria-current="true">
+            IF Wins
+        </h6>
+        <ul class="list-group list-group-horizontal d-flex flex-column">
+            <div class="d-flex">
+                <li class="list-group-item w-100 text-center team1">Team 1</li>
+                <li class="list-group-item w-100 text-center team2">Team 2</li>
+            </div>
+            <div class="d-flex">
+                <h6 id="totalOfTeam1" class="list-group-item w-100 text-center">------</h6>
+                <h6 id="totalOfTeam2" class="list-group-item w-100 text-center">------</h6>
+            </div>
+        </ul>
+    </div>
+    <div class="d-flex flex-wrap">
+        <div style="min-width: 200px;max-width: 400px;" class="container">
+            <div class="list-group my-4">
+                <h6 class="list-group-item list-group-item-primary text-dark team1" aria-current="true">
+                    Team 1
+                </h6>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Fav.</th>
+                            <th scope="col">Do.</th>
+                            <th scope="col">Rate.</th>
+                            <th scope="col">Price.</th>
+                        </tr>
+                    </thead>
+                    <tbody id="sectionOne">
+                    </tbody>
+                </table>
+                <div style="max-width: 380px;border: 1px solid rgb(0,0,0,0.25);" class="d-flex text-center">
+                    <div id="team1Lose" class="w-100 p-2 bg-danger text-white">Lose</div>
+                    <div id="team1Win" class="w-100 p-2 bg-success text-white">Win</div>
+                </div>
+            </div>
+
+        </div>
+        <div style="min-width: 200px;max-width: 400px;" class="container">
+            <div class="list-group my-4">
+                <h6 class="list-group-item list-group-item-info text-dark team2" aria-current="true">
+                    Team 2
+                </h6>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Fav.</th>
+                            <th scope="col">Do.</th>
+                            <th scope="col">Rate.</th>
+                            <th scope="col">Price.</th>
+                        </tr>
+                    </thead>
+                    <tbody id="sectionTwo">
+                    </tbody>
+                </table>
+                <div style="max-width: 380px;border: 1px solid rgb(0,0,0,0.25);" class="d-flex text-center">
+                    <div id="team2Lose" class="w-100 p-2 bg-danger text-white">Lose</div>
+                    <div id="team2Win" class="w-100 p-2 bg-success text-white">Win</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- Button trigger modal -->
+    <div class="container my-5">
+        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Delete Match
+        </button>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete Match</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                   Did you want to delete a match history.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" onclick="deleteMatch()" class="btn btn-danger">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="height: 48vh;">
+    </div>
+    <footer class="bg-dark text-center text-white">
+        <div>
+            <p class="m-0 p-2">Keep Calm!</p>
+        </div>
+    </footer>
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    teams = localStorage.getItem('teams')
+    if (teams == null) {
+        $('#main')[0].style.display = 'none'
+        $('#teamSelect')[0].style.display = 'flex'
+    }
+    else {
+        n = JSON.parse(teams)
+        team1 = $(`.team1`)
+        team2 = $(`.team2`)
+        for (i = 0; i < team1.length; i++) {
+            element = n[i];
+            team1[i].innerText = n[0]
+        }
+        for (f = 0; f < team2.length; f++) {
+            element = n[f];
+            team2[f].innerText = n[1]
+        }
+
+    }
+    sectionOne = localStorage.getItem('sectionOne')
+    sectionTwo = localStorage.getItem('sectionTwo')
+
+    if (sectionOne == null) {
+        let array = []
+        localStorage.setItem('sectionOne', JSON.stringify(array))
+    }
+    if (sectionTwo == null) {
+        let array = []
+        localStorage.setItem('sectionTwo', JSON.stringify(array))
+    }
+    sectionOneWL = localStorage.getItem('sectionOneWL')
+    if (sectionOneWL == null) {
+        let array = []
+        localStorage.setItem('sectionOneWL', JSON.stringify(array))
+    }
+    sectionTwoWL = localStorage.getItem('sectionTwoWL')
+    if (sectionTwoWL == null) {
+        let array = []
+        localStorage.setItem('sectionTwoWL', JSON.stringify(array))
+    }
+    update();
+    total();
+    function total() {
+        // total for team one
+        sectionOneWL = localStorage.getItem('sectionOneWL')
+        sectionOneWL = JSON.parse(sectionOneWL)
+        teamOneWin = []
+        teamOneLose = []
+        for (let teamOne = 0; teamOne < sectionOneWL.length; teamOne++) {
+            const element = sectionOneWL[teamOne];
+            teamOneWin.push(element[0])
+            teamOneLose.push(element[1])
+        }
+        teamOneWin = teamOneWin.reduce((a, b) => a + b, 0)
+        teamOneLose = teamOneLose.reduce((a, b) => a + b, 0)
+
+        // total for team two
+        sectionTwoWL = localStorage.getItem('sectionTwoWL')
+        sectionTwoWL = JSON.parse(sectionTwoWL)
+        teamTwoWin = []
+        teamTwoLose = []
+        for (let teamTwo = 0; teamTwo < sectionTwoWL.length; teamTwo++) {
+            const element = sectionTwoWL[teamTwo];
+            teamTwoWin.push(element[0])
+            teamTwoLose.push(element[1])
+        }
+        teamTwoWin = teamTwoWin.reduce((a, b) => a + b, 0)
+        teamTwoLose = teamTwoLose.reduce((a, b) => a + b, 0)
+
+        // lets update the given values in dom
+        team1Win = $('#team1Win')[0]
+        team1Lose = $('#team1Lose')[0]
+        team2Win = $('#team2Win')[0]
+        team2Lose = $('#team2Lose')[0]
+
+        team1Win.innerText = teamOneWin
+        team1Lose.innerText = teamOneLose
+        team2Win.innerText = teamTwoWin
+        team2Lose.innerText = teamTwoLose
+
+        // lets update all of the total in toal meanu
+        totalOfTeamOne = $('#totalOfTeam1')[0]
+        totalOfTeamTwo = $('#totalOfTeam2')[0]
+
+        totalForTeamOne = teamOneWin - teamTwoLose
+        totalForTeamTwo = teamTwoWin - teamOneLose
+
+        totalOfTeamOne.innerText = totalForTeamOne
+        totalOfTeamTwo.innerText = totalForTeamTwo
+
+        if (totalForTeamOne > 0) {
+            totalOfTeamOne.style.backgroundColor = '#198754'
+            totalOfTeamOne.style.color = 'white'
+        } else if (totalForTeamOne < 0) {
+            totalOfTeamOne.style.backgroundColor = '#dc3545'
+            totalOfTeamOne.style.color = 'white'
+        }
+
+        if (totalForTeamTwo > 0) {
+            totalOfTeamTwo.style.backgroundColor = '#198754'
+            totalOfTeamTwo.style.color = 'white'
+        } else if (totalForTeamTwo < 0) {
+            totalOfTeamTwo.style.backgroundColor = '#dc3545'
+            totalOfTeamTwo.style.color = 'white'
+        }
+
+    }
+    function update() {
+        saveSectionOne = localStorage.getItem('sectionOne')
+        saveSectionTwo = localStorage.getItem('sectionTwo')
+        saveSectionOne = JSON.parse(saveSectionOne)
+        saveSectionTwo = JSON.parse(saveSectionTwo)
+        sectionOne = $('#sectionOne').empty()
+        sectionTwo = $('#sectionTwo').empty()
+        for (let item = 0; item < saveSectionOne.length; item++) {
+            const element = saveSectionOne[item];
+            str = `<tr>
+                        <th scope="row">${element[0]}</th>
+                        <td>${element[1]}</td>
+                        <td>${element[3]}</td>
+                        <td>${element[2]}</td>
+                    </tr>`
+            sectionOne.append(str)
+        }
+
+        for (let item = 0; item < saveSectionTwo.length; item++) {
+            const element = saveSectionTwo[item];
+            str = `<tr>
+                        <th scope="row">${element[0]}</th>
+                        <td>${element[1]}</td>
+                        <td>${element[3]}</td>
+                        <td>${element[2]}</td>
+                    </tr>`
+            sectionTwo.append(str)
+        }
+        total();
+
+    }
+
+    function selectTeams() {
+        selectedOne = $('#selectTeam1')[0].value.toUpperCase()
+        selectedTwo = $('#selectTeam2')[0].value.toUpperCase()
+        let array = []
+        array.push(selectedOne)
+        array.push(selectedTwo)
+        localStorage.setItem('teams', JSON.stringify(array))
+        location.reload();
+    }
+
+    function addRate() {
+        teamOne = document.getElementById('team1')
+        teamTwo = document.getElementById('team2')
+
+        direct = document.getElementById('doing1')
+        opposite = document.getElementById('doing2')
+
+        price = document.getElementById('price')
+        rate = document.getElementById('rate')
+
+
+
+        rate = rate.value
+        price = price.value
+
+        if (direct.checked == true) {
+            doing = direct
+        } else {
+            doing = opposite
+        }
+
+        doing = $(`#${doing.id}Label`).text().trim()
+
+        if (teamOne.checked == true && doing == 'Direct') {
+            // add in section One
+            team = teamOne
+            team = $(`#${team.id}Label`).text().trim()
+            sectionOne = localStorage.getItem('sectionOne')
+            sectionOne = JSON.parse(sectionOne)
+            array = []
+            array.push(team)
+            array.push(doing)
+            array.push(price)
+            array.push(rate)
+            sectionOne.push(array)
+            localStorage.setItem('sectionOne', JSON.stringify(sectionOne))
+            sectionOneWL = localStorage.getItem('sectionOneWL')
+            sectionOneWL = JSON.parse(sectionOneWL)
+            calc = (parseInt(rate) * parseInt(price)) / 100
+            let winOrLose = []
+            winOrLose.push(calc)
+            winOrLose.push(parseInt(price))
+            sectionOneWL.push(winOrLose)
+            localStorage.setItem('sectionOneWL', JSON.stringify(sectionOneWL))
+
+        }
+        else if (teamTwo.checked == true && doing == 'Oposite') {
+            //  add in section One
+            team = teamTwo
+            team = $(`#${team.id}Label`).text().trim()
+            sectionOne = localStorage.getItem('sectionOne')
+            sectionOne = JSON.parse(sectionOne)
+            array = []
+            array.push(team)
+            array.push(doing)
+            array.push(price)
+            array.push(rate)
+            sectionOne.push(array)
+            localStorage.setItem('sectionOne', JSON.stringify(sectionOne))
+            sectionOneWL = localStorage.getItem('sectionOneWL')
+            sectionOneWL = JSON.parse(sectionOneWL)
+            calc = (parseInt(rate) * parseInt(price)) / 100
+            let winOrLose = []
+            winOrLose.push(parseInt(price))
+            winOrLose.push(calc)
+            sectionOneWL.push(winOrLose)
+            localStorage.setItem('sectionOneWL', JSON.stringify(sectionOneWL))
+
+
+        }
+        else if (teamTwo.checked == true && doing == 'Direct') {
+            //  add in section Two
+            team = teamTwo
+            team = $(`#${team.id}Label`).text().trim()
+            sectionTwo = localStorage.getItem('sectionTwo')
+            sectionTwo = JSON.parse(sectionTwo)
+            array = []
+            array.push(team)
+            array.push(doing)
+            array.push(price)
+            array.push(rate)
+            sectionTwo.push(array)
+            localStorage.setItem('sectionTwo', JSON.stringify(sectionTwo))
+            sectionTwoWL = localStorage.getItem('sectionTwoWL')
+            sectionTwoWL = JSON.parse(sectionTwoWL)
+            calc = (parseInt(rate) * parseInt(price)) / 100
+            let winOrLose = []
+            winOrLose.push(calc)
+            winOrLose.push(parseInt(price))
+            sectionTwoWL.push(winOrLose)
+            localStorage.setItem('sectionTwoWL', JSON.stringify(sectionTwoWL))
+
+        }
+        else if (teamOne.checked == true && doing == 'Oposite') {
+            //  add in section Two
+            team = teamOne
+            team = $(`#${team.id}Label`).text().trim()
+            sectionTwo = localStorage.getItem('sectionTwo')
+            sectionTwo = JSON.parse(sectionTwo)
+            array = []
+            array.push(team)
+            array.push(doing)
+            array.push(price)
+            array.push(rate)
+            sectionTwo.push(array)
+            localStorage.setItem('sectionTwo', JSON.stringify(sectionTwo))
+            sectionTwoWL = localStorage.getItem('sectionTwoWL')
+            sectionTwoWL = JSON.parse(sectionTwoWL)
+            calc = (parseInt(rate) * parseInt(price)) / 100
+            let winOrLose = []
+            winOrLose.push(parseInt(price))
+            winOrLose.push(calc)
+            sectionTwoWL.push(winOrLose)
+            localStorage.setItem('sectionTwoWL', JSON.stringify(sectionTwoWL))
+
+        }
+
+        else {
+            team = teamTwo
+        }
+
+        team = $(`#${team.id}Label`).text().trim()
+
+        update();
+
+    }
+    function deleteMatch() {
+        localStorage.clear()
+        location.reload()
+    }
+</script>
+
+</html>
