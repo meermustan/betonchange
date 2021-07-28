@@ -6,10 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=0.9">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+        integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
-    <link rel="icon" type="image/png" href="/favicon.png"/>
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <style>
+        .form-check-input[type=radio] {
+            border-radius: 25%;
+        }
+
+        .select2-dropdown {
+            top: 22px !important;
+            left: 8px !important;
+        }
+    </style>
     <title>Bet On Change</title>
 
 </head>
@@ -20,44 +32,98 @@
     </nav>
     <div class="container my-4" style="display: none;flex-direction: column;" id="teamSelect">
         <h3>Choose a teams:</h3>
-        <div class="d-flex mx-4 my-3">
+        <div class="d-flex mx-4 my-3 flex-wrap">
+            <div class="me-3 my-3">
+                <!-- Team 1 : <input id="selectTeam1" style="width: 40px;" type="text"> -->
+                <select id="selectTeam1">
+                   <option hidden disabled selected value="">Select Team 1</option>
+                    <optgroup label="MAIN Teams">
+                        <option value="AFG">Afghanistan</option>
+                        <option value="AUS">Australia</option>
+                        <option value="BAN">Bangladesh</option>
+                        <option value="ENG">England</option>
+                        <option value="IND">India</option>
+                        <option value="IRE">Ireland</option>
+                        <option value="NZ">New Zealand</option>
+                        <option value="PAK">Pakistan</option>
+                        <option value="SA">Saouth Africa</option>
+                        <option value="SL">Siri Lanka</option>
+                        <option value="WI">West Indies</option>
+                        <option value="ZIM">Zimbabwea</option>
+                        <option disabled value="">__________</option>
+                    </optgroup>
+                    <!-- <optgroup label="PSL Teams">
+
+                    </optgroup>
+                    <optgroup label="IPL Teams">
+                        
+                    </optgroup>
+                    <optgroup label="BIG BASH Teams">
+
+                    </optgroup> -->
+                    
+
+                </select>
+            </div>
+            <div class="my-3">
+                <!-- Team 2 : <input id="selectTeam2" style="width: 40px;" type="text"> -->
+                <select id="selectTeam2">
+                    <option hidden disabled selected value="">Select Team 2</option>
+                    <optgroup label="MAIN Teams">
+                        <option value="AFG">Afghanistan</option>
+                        <option value="AUS">Australia</option>
+                        <option value="BAN">Bangladesh</option>
+                        <option value="ENG">England</option>
+                        <option value="IND">India</option>
+                        <option value="IRE">Ireland</option>
+                        <option value="NZ">New Zealand</option>
+                        <option value="PAK">Pakistan</option>
+                        <option value="SA">Saouth Africa</option>
+                        <option value="SL">Siri Lanka</option>
+                        <option value="WI">West Indies</option>
+                        <option value="ZIM">Zimbabwea</option>
+                        <option disabled value="">__________</option>
+                    </optgroup>
+                    <!-- <optgroup label="PSL Teams">
+
+                    </optgroup>
+                    <optgroup label="IPL Teams">
+
+                    </optgroup>
+                    <optgroup label="BIG BASH Teams">
+
+                    </optgroup> -->
+                </select>
+            </div>
             <div class="mx-4">
-                Team 1 : <input id="selectTeam1" style="width: 40px;" type="text">
-            </div>
-            <div>
-                Team 2 : <input id="selectTeam2" style="width: 40px;" type="text">
-            </div>
-            <div class="mx-5">
                 <button onclick="selectTeams()" class="btn btn-secondary">Enter</button>
             </div>
         </div>
     </div>
     <div id="main" style="border: 1px solid rgb(0, 0, 0 , 0.25); display: flex;" class="container p-3 my-4 flex-wrap">
         <div class="mx-3">
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="teams" id="team1" checked>
+            <div class="form-check d-flex align-items-center">
+                <input class="form-check-input me-2" type="radio" name="teams" id="team1" checked>
                 <label class="form-check-label team1" id="team1Label" for="team1">
-                    Team 1
                 </label>
             </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="teams" id="team2">
+            <div class="form-check d-flex align-items-center">
+                <input class="form-check-input me-2" type="radio" name="teams" id="team2">
                 <label class="form-check-label team2" id="team2Label" for="team2">
-                    Team 2
                 </label>
             </div>
         </div>
-        <div>
-            <div class="form-check">
+        <div class="mx-3">
+            <div style="height: 40px;width: 65px;" class="form-check d-flex justify-content-between align-items-center">
                 <input class="form-check-input" type="radio" name="rates" id="doing1" checked>
                 <label class="form-check-label" id="doing1Label" for="doing1">
-                    Direct
+                    <i class="fa fa-long-arrow-right" style="font-size:48px;"></i>
                 </label>
             </div>
-            <div class="form-check">
+            <div style="height: 40px;width: 65px;" class="form-check d-flex justify-content-between align-items-center">
                 <input class="form-check-input" type="radio" name="rates" id="doing2">
                 <label class="form-check-label" id="doing2Label" for="doing2">
-                    Oposite
+                    <i class="fa fa-long-arrow-left" style="font-size:48px;"></i>
                 </label>
             </div>
         </div>
@@ -146,7 +212,8 @@
 
     <!-- Button trigger modal -->
     <div class="container my-5 d-flex justify-content-between">
-        <button onclick="updateLastRate()" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteLastOne">Remove last Rate</button>
+        <button onclick="updateLastRate()" class="btn btn-outline-danger" data-bs-toggle="modal"
+            data-bs-target="#deleteLastOne">Remove last Rate</button>
         <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteMatch">
             Delete Match
         </button>
@@ -170,6 +237,8 @@
             </div>
         </div>
     </div>
+
+
 
     <!-- Remove last rate Modal -->
     <div class="modal fade" id="deleteLastOne" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
@@ -197,29 +266,40 @@
         </div>
     </footer>
 </body>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
+    $("#selectTeam1").select({
+        placeholder: "Select Team 1",
+        allowClear: true
+    });
+    $("#selectTeam2").select({
+        placeholder: "Select Team 2",
+        allowClear: true
+    });
     // setting a sections in localstroge or checking if exsist.
-    teams = localStorage.getItem('teams')
-    if (teams == null) {
-        $('#main')[0].style.display = 'none'
-        $('#teamSelect')[0].style.display = 'flex'
-    }
-    else {
-        n = JSON.parse(teams)
-        team1 = $(`.team1`)
-        team2 = $(`.team2`)
-        for (i = 0; i < team1.length; i++) {
-            element = n[i];
-            team1[i].innerText = n[0]
+    function addTeamLogo() {
+        teams = localStorage.getItem('teams')
+        if (teams == null) {
+            $('#main')[0].style.display = 'none'
+            $('#teamSelect')[0].style.display = 'flex'
         }
-        for (f = 0; f < team2.length; f++) {
-            element = n[f];
-            team2[f].innerText = n[1]
+        else {
+            n = JSON.parse(teams)
+            team1 = $(`.team1`)
+            team2 = $(`.team2`)
+            for (i = 0; i < team1.length; i++) {
+                element = n[i];
+                team1[i].innerHTML = `<img style="height:40px" src="${n[0]}.png"></img>`
+            }
+            for (f = 0; f < team2.length; f++) {
+                element = n[f];
+                team2[f].innerHTML = `<img style="height:40px" src="${n[1]}.png"></img>`
+            }
+
         }
 
     }
+    addTeamLogo();
 
     sectionOne = localStorage.getItem('sectionOne')
     sectionTwo = localStorage.getItem('sectionTwo')
@@ -245,7 +325,7 @@
 
     lastRate = localStorage.getItem('lastRate')
 
-    if (lastRate == null){
+    if (lastRate == null) {
         let array = []
         localStorage.setItem('lastRate', JSON.stringify(array))
     }
@@ -334,26 +414,48 @@
         saveSectionTwo = JSON.parse(saveSectionTwo)
         sectionOne = $('#sectionOne').empty()
         sectionTwo = $('#sectionTwo').empty()
+        teams = localStorage.getItem('teams')
+        teams = JSON.parse(teams)
         for (let item = 0; item < saveSectionOne.length; item++) {
             const element = saveSectionOne[item];
             str = `<tr>
-                        <th scope="row">${element[0]}</th>
-                        <td>${element[1]}</td>
-                        <td>${element[3]}</td>
-                        <td>${element[2]}</td>
-                    </tr>`
+                    <th scope="row" class="rate${element[0]}Logo">${element[0]}</th>
+                    <td class="rate${element[1]}">${element[1]}</td>
+                    <td>${element[3]}</td>
+                    <td>${element[2]}</td>
+                </tr>`
             sectionOne.append(str)
         }
-
         for (let item = 0; item < saveSectionTwo.length; item++) {
             const element = saveSectionTwo[item];
             str = `<tr>
-                        <th scope="row">${element[0]}</th>
-                        <td>${element[1]}</td>
-                        <td>${element[3]}</td>
-                        <td>${element[2]}</td>
-                    </tr>`
+                <th scope="row" class="rate${element[0]}Logo">${element[0]}</th>
+                <td class="rate${element[1]}">${element[1]}</td>
+                <td>${element[3]}</td>
+                <td>${element[2]}</td>
+            </tr>`
             sectionTwo.append(str)
+        }
+        team1Logo = $(".rateteam1Logo")
+        for (let logo1 = 0; logo1 < team1Logo.length; logo1++) {
+            const element = team1Logo[logo1];
+            element.innerHTML = `<img style="height:20px" src="${teams[0]}.png"></img>`
+        }
+        team2Logo = $(".rateteam2Logo")
+        for (let logo2 = 0; logo2 < team2Logo.length; logo2++) {
+            const element = team2Logo[logo2];
+            element.innerHTML = `<img style="height:20px" src="${teams[1]}.png"></img>`
+        }
+
+        doingOpposite = $(".ratedoing2")
+        for (let opposit = 0; opposit < doingOpposite.length; opposit++) {
+            const element = doingOpposite[opposit];
+            element.innerHTML = `<i class="fa fa-long-arrow-left" style="font-size:25px;"></i>`
+        }
+        doingDirect = $(".ratedoing1")
+        for (let direct = 0; direct < doingDirect.length; direct++) {
+            const element = doingDirect[direct];
+            element.innerHTML = `<i class="fa fa-long-arrow-right" style="font-size:25px;"></i>`
         }
         total();
     }
@@ -371,13 +473,11 @@
     function addRate() {
         teamOne = document.getElementById('team1')
         teamTwo = document.getElementById('team2')
-
         direct = document.getElementById('doing1')
         opposite = document.getElementById('doing2')
 
         price = document.getElementById('price')
         rate = document.getElementById('rate')
-
 
 
         rate = rate.value
@@ -388,13 +488,11 @@
         } else {
             doing = opposite
         }
+        doing = doing.id
 
-        doing = $(`#${doing.id}Label`).text().trim()
-
-        if (teamOne.checked == true && doing == 'Direct') {
+        if (teamOne.checked == true && doing == 'doing1') {
             // add in localStorage section One
-            team = teamOne
-            team = $(`#${team.id}Label`).text().trim()
+            team = teamOne.id
             sectionOne = localStorage.getItem('sectionOne')
             sectionOne = JSON.parse(sectionOne)
             array = []
@@ -417,14 +515,13 @@
             lastRateArr = []
             lastRateArr.push("sectionOne")
             lastRate.push(lastRateArr)
-            localStorage.setItem('lastRate',JSON.stringify(lastRate))
+            localStorage.setItem('lastRate', JSON.stringify(lastRate))
 
         }
 
-        else if (teamTwo.checked == true && doing == 'Oposite') {
+        else if (teamTwo.checked == true && doing == 'doing2') {
             //  add in localStorage section One
-            team = teamTwo
-            team = $(`#${team.id}Label`).text().trim()
+            team = teamTwo.id
             sectionOne = localStorage.getItem('sectionOne')
             sectionOne = JSON.parse(sectionOne)
             array = []
@@ -447,14 +544,13 @@
             lastRateArr = []
             lastRateArr.push("sectionOne")
             lastRate.push(lastRateArr)
-            localStorage.setItem('lastRate',JSON.stringify(lastRate))
+            localStorage.setItem('lastRate', JSON.stringify(lastRate))
 
 
         }
-        else if (teamTwo.checked == true && doing == 'Direct') {
+        else if (teamTwo.checked == true && doing == 'doing1') {
             //  add in localStorage section Two
-            team = teamTwo
-            team = $(`#${team.id}Label`).text().trim()
+            team = teamTwo.id
             sectionTwo = localStorage.getItem('sectionTwo')
             sectionTwo = JSON.parse(sectionTwo)
             array = []
@@ -477,13 +573,12 @@
             lastRateArr = []
             lastRateArr.push("sectionTwo")
             lastRate.push(lastRateArr)
-            localStorage.setItem('lastRate',JSON.stringify(lastRate))
+            localStorage.setItem('lastRate', JSON.stringify(lastRate))
 
         }
-        else if (teamOne.checked == true && doing == 'Oposite') {
+        else if (teamOne.checked == true && doing == 'doing2') {
             //  add in localStorage section Two
-            team = teamOne
-            team = $(`#${team.id}Label`).text().trim()
+            team = teamOne.id
             sectionTwo = localStorage.getItem('sectionTwo')
             sectionTwo = JSON.parse(sectionTwo)
             array = []
@@ -506,12 +601,12 @@
             lastRateArr = []
             lastRateArr.push("sectionTwo")
             lastRate.push(lastRateArr)
-            localStorage.setItem('lastRate',JSON.stringify(lastRate))
+            localStorage.setItem('lastRate', JSON.stringify(lastRate))
 
         }
 
 
-        team = $(`#${team.id}Label`).text().trim()
+        // team = $(`#${team.id}Label`).text().trim()
         update();
     }
     function updateLastRate() {
@@ -520,18 +615,47 @@
         lastRate = localStorage.getItem('lastRate')
         lastRate = JSON.parse(lastRate)
         n = lastRate.pop()
-        str=``
-        if (n == "sectionOne"){
-           sectionOne = localStorage.getItem('sectionOne')
-           sectionOne = JSON.parse(sectionOne)
-           sectionOne = sectionOne.pop()
-           str = `${sectionOne[0]} , ${sectionOne[1]} , ${sectionOne[3]} , ${sectionOne[2]}`
-        }else if (n == "sectionTwo"){
-           sectionTwo = localStorage.getItem('sectionTwo')
-           sectionTwo = JSON.parse(sectionTwo)
-           sectionTwo = sectionTwo.pop()
-           str = `${sectionTwo[0]} , ${sectionTwo[1]} , ${sectionTwo[3]} , ${sectionTwo[2]}`
-           
+        str = ``
+        teams = localStorage.getItem('teams')
+        teams = JSON.parse(teams)
+        if (n == "sectionOne") {
+            sectionOne = localStorage.getItem('sectionOne')
+            sectionOne = JSON.parse(sectionOne)
+            sectionOne = sectionOne.pop()
+            if (sectionOne[0] == 'team1') {
+                if (sectionOne[1] == 'doing1') {
+                    str = `<img style="height:20px;" src="${teams[0]}.png"></img>, <i class="fa fa-long-arrow-right" style="font-size:25px;"></i> , ${sectionOne[3]} , ${sectionOne[2]}`
+                } else {
+                    str = `<img style="height:20px;" src="${teams[0]}.png"></img>, <i class="fa fa-long-arrow-left" style="font-size:25px;"></i> , ${sectionOne[3]} , ${sectionOne[2]}`
+                }
+            } else {
+                if (sectionOne[1] == "doing1") {
+                    str = `<img style="height:20px;" src="${teams[1]}.png"></img>, <i class="fa fa-long-arrow-right" style="font-size:25px;"></i> , ${sectionOne[3]} , ${sectionOne[2]}`
+                } else {
+                    str = `<img style="height:20px;" src="${teams[1]}.png"></img>, <i class="fa fa-long-arrow-left" style="font-size:25px;"></i> , ${sectionOne[3]} , ${sectionOne[2]}`
+
+                }
+            }
+        }
+        else if (n == "sectionTwo") {
+            sectionTwo = localStorage.getItem('sectionTwo')
+            sectionTwo = JSON.parse(sectionTwo)
+            sectionTwo = sectionTwo.pop()
+            if (sectionTwo[0] == 'team1') {
+                if (sectionTwo[1] == 'doing1') {
+                    str = `<img style="height:20px;" src="${teams[0]}.png"></img>, <i class="fa fa-long-arrow-right" style="font-size:25px;"></i> , ${sectionTwo[3]} , ${sectionTwo[2]}`
+                } else {
+                    str = `<img style="height:20px;" src="${teams[0]}.png"></img>, <i class="fa fa-long-arrow-left" style="font-size:25px;"></i> , ${sectionTwo[3]} , ${sectionTwo[2]}`
+                }
+            } else {
+                if (sectionTwo[1] == 'doing1') {
+                    str = `<img style="height:20px;" src="${teams[1]}.png"></img>, <i class="fa fa-long-arrow-right" style="font-size:25px;"></i> , ${sectionTwo[3]} , ${sectionTwo[2]}`
+                } else {
+                    str = `<img style="height:20px;" src="${teams[1]}.png"></img>, <i class="fa fa-long-arrow-left" style="font-size:25px;"></i> , ${sectionTwo[3]} , ${sectionTwo[2]}`
+                }
+            }
+
+
         }
         lastRatePlace.empty()
         lastRatePlace.append(str)
@@ -541,27 +665,27 @@
         lastRate = localStorage.getItem('lastRate')
         lastRate = JSON.parse(lastRate)
         n = lastRate.pop()
-        if (n == "sectionOne"){
-           sectionOne = localStorage.getItem('sectionOne')
-           sectionOneWL = localStorage.getItem('sectionOneWL')
-           sectionOne = JSON.parse(sectionOne)
-           sectionOneWL = JSON.parse(sectionOneWL)
-           sectionOne.pop()
-           sectionOneWL.pop()
-           localStorage.setItem('sectionOne',JSON.stringify(sectionOne))
-           localStorage.setItem('sectionOneWL',JSON.stringify(sectionOneWL))
+        if (n == "sectionOne") {
+            sectionOne = localStorage.getItem('sectionOne')
+            sectionOneWL = localStorage.getItem('sectionOneWL')
+            sectionOne = JSON.parse(sectionOne)
+            sectionOneWL = JSON.parse(sectionOneWL)
+            sectionOne.pop()
+            sectionOneWL.pop()
+            localStorage.setItem('sectionOne', JSON.stringify(sectionOne))
+            localStorage.setItem('sectionOneWL', JSON.stringify(sectionOneWL))
 
-        }else if (n == "sectionTwo"){
-           sectionTwo = localStorage.getItem('sectionTwo')
-           sectionTwoWL = localStorage.getItem('sectionTwoWL')
-           sectionTwo = JSON.parse(sectionTwo)
-           sectionTwoWL = JSON.parse(sectionTwoWL)
-           sectionTwo.pop()
-           sectionTwoWL.pop()
-           localStorage.setItem('sectionTwo',JSON.stringify(sectionTwo))
-           localStorage.setItem('sectionTwoWL',JSON.stringify(sectionTwoWL))
+        } else if (n == "sectionTwo") {
+            sectionTwo = localStorage.getItem('sectionTwo')
+            sectionTwoWL = localStorage.getItem('sectionTwoWL')
+            sectionTwo = JSON.parse(sectionTwo)
+            sectionTwoWL = JSON.parse(sectionTwoWL)
+            sectionTwo.pop()
+            sectionTwoWL.pop()
+            localStorage.setItem('sectionTwo', JSON.stringify(sectionTwo))
+            localStorage.setItem('sectionTwoWL', JSON.stringify(sectionTwoWL))
         }
-        localStorage.setItem('lastRate',JSON.stringify(lastRate))
+        localStorage.setItem('lastRate', JSON.stringify(lastRate))
         location.reload()
     }
 
