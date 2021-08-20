@@ -9,6 +9,28 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
+    <style>
+        .form-team1 , .form-team2{
+            display: flex;
+            padding: 0 !important;
+            border-radius: 9px;
+            height: 36px;
+            width: 72px;
+            flex-direction: row;
+            align-items: center;
+            background-color: rgb(21, 255, 0);
+        }
+        #team1 , #team2{
+            margin: 0px 8px;
+        }
+        .form-check-input:checked[type=radio] {
+             /* background-image:none; */
+        }
+        .form-check-input:checked {
+            background-color: #000000;
+            border-color: #000000;
+        }
+    </style>
     <link rel="icon" type="image/png" href="/favicon.png"/>
     <title>Bet On Change</title>
 
@@ -18,14 +40,14 @@
     <nav class="navbar navbar-dark bg-dark">
         <div class="text-light my-2 mx-3">Bet On Change</div>
     </nav>
-    <div class="container my-4" style="display: none;flex-direction: column;" id="teamSelect">
+    <div class="mx-5 my-4" style="display: none;flex-direction: column;" id="teamSelect">
         <h3>Choose a teams:</h3>
-        <div class="d-flex mx-4 my-3">
-            <div class="mx-4">
-                Team 1 : <input id="selectTeam1" style="width: 40px;" type="text">
+        <div class="d-flex justify-content-around">
+            <div class="mx-2">
+                Team 1 : <input id="selectTeam1" style="width: 40px;" type="text">&nbsp;<input type="color" id="colorTeam1">
             </div>
             <div>
-                Team 2 : <input id="selectTeam2" style="width: 40px;" type="text">
+                Team 2 : <input id="selectTeam2" style="width: 40px;" type="text">&nbsp;<input type="color" id="colorTeam2">
             </div>
             <div class="mx-5">
                 <button onclick="selectTeams()" class="btn btn-secondary">Enter</button>
@@ -34,13 +56,13 @@
     </div>
     <div id="main" style="border: 1px solid rgb(0, 0, 0 , 0.25); display: flex;" class="container p-3 my-4 flex-wrap">
         <div class="mx-3">
-            <div class="form-check">
+            <div class="form-check form-team1">
                 <input class="form-check-input" type="radio" name="teams" id="team1" checked>
                 <label class="form-check-label team1" id="team1Label" for="team1">
                     Team 1
                 </label>
             </div>
-            <div class="form-check">
+            <div class="form-check form-team2">
                 <input class="form-check-input" type="radio" name="teams" id="team2">
                 <label class="form-check-label team2" id="team2Label" for="team2">
                     Team 2
@@ -96,7 +118,7 @@
     <div class="d-flex flex-wrap">
         <div style="min-width: 200px;max-width: 400px;" class="container">
             <div class="list-group my-4">
-                <h6 class="list-group-item list-group-item-primary text-dark team1" aria-current="true">
+                <h6 class="list-group-item list-group-item-primary team1" aria-current="true">
                     Team 1
                 </h6>
                 <table class="table">
@@ -120,7 +142,7 @@
         </div>
         <div style="min-width: 200px;max-width: 400px;" class="container">
             <div class="list-group my-4">
-                <h6 class="list-group-item list-group-item-info text-dark team2" aria-current="true">
+                <h6 class="list-group-item list-group-item-info team2" aria-current="true">
                     Team 2
                 </h6>
                 <table class="table">
@@ -202,21 +224,29 @@
 <script>
     // setting a sections in localstroge or checking if exsist.
     teams = localStorage.getItem('teams')
+    colors = localStorage.getItem('colors')
     if (teams == null) {
         $('#main')[0].style.display = 'none'
         $('#teamSelect')[0].style.display = 'flex'
     }
     else {
         n = JSON.parse(teams)
+        c = JSON.parse(colors)
         team1 = $(`.team1`)
         team2 = $(`.team2`)
         for (i = 0; i < team1.length; i++) {
             element = n[i];
             team1[i].innerText = n[0]
+            team1[i].style.backgroundColor = c[0];
+            team1[i].style.color = pickTextColorBasedOnBgColorAdvanced(c[0], '#FFFFFF', '#000000');
+            $('.form-team1')[0].style.backgroundColor = c[0];
         }
         for (f = 0; f < team2.length; f++) {
             element = n[f];
             team2[f].innerText = n[1]
+            team2[f].style.backgroundColor = c[1];
+            team2[f].style.color = pickTextColorBasedOnBgColorAdvanced(c[1], '#FFFFFF', '#000000');;
+            $('.form-team2')[0].style.backgroundColor = c[1];
         }
 
     }
@@ -360,11 +390,17 @@
 
     function selectTeams() {
         selectedOne = $('#selectTeam1')[0].value.toUpperCase()
+        colorOne = $('#colorTeam1')[0].value
         selectedTwo = $('#selectTeam2')[0].value.toUpperCase()
+        colorTwo = $('#colorTeam2')[0].value
         let array = []
         array.push(selectedOne)
         array.push(selectedTwo)
         localStorage.setItem('teams', JSON.stringify(array))
+        let colorArray = []
+        colorArray.push(colorOne)
+        colorArray.push(colorTwo)
+        localStorage.setItem('colors', JSON.stringify(colorArray))
         location.reload();
     }
 
@@ -570,6 +606,22 @@
         location.reload()
     }
 
+    function pickTextColorBasedOnBgColorAdvanced(bgColor, lightColor, darkColor) {
+        var color = (bgColor.charAt(0) === '#') ? bgColor.substring(1, 7) : bgColor;
+        var r = parseInt(color.substring(0, 2), 16); // hexToR
+        var g = parseInt(color.substring(2, 4), 16); // hexToG
+        var b = parseInt(color.substring(4, 6), 16); // hexToB
+        var uicolors = [r / 255, g / 255, b / 255];
+        var c = uicolors.map((col) => {
+            if (col <= 0.03928) {
+            return col / 12.92;
+            }
+            return Math.pow((col + 0.055) / 1.055, 2.4);
+        });
+        var L = (0.2126 * c[0]) + (0.7152 * c[1]) + (0.0722 * c[2]);
+        return (L > 0.179) ? darkColor : lightColor;
+    }
+    
 </script>
 
 </html>
